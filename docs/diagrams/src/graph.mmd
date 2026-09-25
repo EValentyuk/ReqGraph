@@ -1,0 +1,38 @@
+%% Схема графа ReqGraph. Рёбра сверяются с настоящим графом тестом tests/test_docs.py.
+flowchart TD
+    begin(["Запрос заказчика"])
+    retrieve["retrieve<br/>поиск в базе знаний"]
+    extract["extract<br/>требования с источниками"]
+    check_sources["check_sources<br/>у требования есть источник"]
+    check_wording["check_wording<br/>формулировка проверяема"]
+    review{"review<br/>что дальше"}
+    ask_human[/"ask_human<br/>вопросы заказчику"/]
+    decompose["decompose<br/>эпик и задачи"]
+    check_coverage{"check_coverage<br/>всё покрыто?"}
+    render["render<br/>итоговый документ"]
+    done(["Требования и задачи"])
+
+    begin --> retrieve
+    retrieve --> extract
+    extract --> check_sources
+    extract --> check_wording
+    check_sources --> review
+    check_wording --> review
+    review -->|замечания| extract
+    review -->|нужен ответ заказчика| ask_human
+    review -->|чисто| decompose
+    review -->|попытки кончились| render
+    ask_human --> retrieve
+    decompose --> check_coverage
+    check_coverage -->|пробелы| decompose
+    check_coverage -->|всё закрыто| render
+    render --> done
+
+    classDef model fill:#e3f2fd,stroke:#1e88e5
+    classDef control fill:#e0f2f1,stroke:#00897b
+    classDef human fill:#e8f5e9,stroke:#43a047
+    classDef system fill:#fff3e0,stroke:#ef6c00
+    class extract,decompose model
+    class check_sources,check_wording,review,check_coverage control
+    class ask_human human
+    class retrieve,render system

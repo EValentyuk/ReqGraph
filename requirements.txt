@@ -1,0 +1,12 @@
+langgraph>=1.2
+langchain>=1.4
+langchain-core>=1.6
+pydantic>=2.12
+PyYAML>=6.0
+pytest>=9.0
+
+# Провайдер настоящей модели – поставить один нужный:
+# langchain-openai     – OpenAI и совместимые API
+# langchain-anthropic  – Claude
+# langchain-ollama     – локальная модель, данные не уходят наружу
+# Остальные провайдеры – по списку init_chat_model в LangChain.
